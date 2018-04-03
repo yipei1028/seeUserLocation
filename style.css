@@ -4,38 +4,69 @@
   box-sizing: border-box;
 }
 
-.main-container{
-  width:1200px;
-  margin:0 auto;
+html,body{
+  width: 100%;
+  height: 100%;
 }
 
-.left-container{
-
+.main-container{
+  width:1200px;
+  height:auto;
+  margin:0 auto;
+  background-color:rgb(231,231,231);
+  border: 1px solid lightgray;
+  text-align: center;
 }
 
 .right-container{
   display: block;
-  width:600px;
+  width:800px;
   height:auto;
   margin:0 auto;
-  background-color: gray;
 }
 
 .top-map-container{
   display: block;
   width:100%;
-  height:300px;
-  background-color: blue;
+  height:350px;
+}
+
+.top-map-container > img{
+  width:100%;
+  height:100%;
+  overflow: hidden;
 }
 
 .bottom-users-container{
-  display: block;
-  width:100%;
-  height:500px;
-  background-color: pink;
+  display:block;
+  width:800px;
+  height:auto;
+  background-color: white;
   margin:0 auto;
-  padding:20px;
+  padding-top:20px;
   text-align: center;
+}
+
+.users-middle-container{
+  display:inline-block;
+  width:600px;
+  height:auto;
+  background-color: white;
+  margin:0 auto;
+  text-align: center;
+}
+
+.change-page-btn{
+  display: inline-block;
+  width:80px;
+  height: auto;
+  background-color: white;
+  text-align: center;
+}
+
+.change-page-btn >img{
+  width:80px;
+  height: auto;
 }
 
 .users-row{
@@ -43,12 +74,85 @@
   width:100%;
   height:280px;
   margin:0 auto;
-  background-color: aqua;
 }
 
 .user-card{
   display: inline-block;
   width:180px;
   height:250px;
-  background-color: gray;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  vertical-align: top;
+  position: relative;
+}
+
+.user-card-cover{
+  display: block;
+  width:100%;
+  height:80px;
+  background-color: pink;
+  border-radius: 5px 5px 0px 0px;
+  border-bottom:1px solid white; 
+}
+
+.user-card-img{
+  display: block;
+  width:180px;
+  height: auto;
+  margin:0 auto;
+  vertical-align: top;
+  z-index:1000;
+  position: absolute;
+  top:30px;
+}
+
+.user-card-cover >img{
+  width:100%;
+  height:100%;
+}
+
+.user-card-img > img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  border: 4px solid white;
+}
+
+.decoration-line{
+  font-size: 20px;
+  font-weight: bolder;
+  color:rgb(130,159,65);
+  margin:10px;
+}
+
+.user-name{
+  font-size: 25px;
+  font-weight: bolder;
+  color:#55AA00;
+}
+
+.user-card-info{
+  display: block;
+  width:100%;
+  height:170px;
+  border-radius: 0px 0px 5px 5px;
+  margin-top:50px;
+}
+
+.user-description{
+  color:gray;
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+.see-more-btn > button{
+  background-color: #55AA00;
+  height: 30px;
+  line-height: 20px;
+  width: 70px;
+  padding: 5px;
+  color:white;
+  font-weight: normal;
+  border: lightgray solid 1px;
+  margin:7px;
 }

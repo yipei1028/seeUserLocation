@@ -41,8 +41,8 @@ html,body{
 .selection-bar{
   display: block;
   width:100%;
-  height: 50px;
-  background-color: white;
+  height: 60px;
+  background-color: #55AA00;
   border-top: lightgray solid 1px;
   border-bottom: lightgray solid 1px;
   position: relative;
@@ -52,7 +52,7 @@ html,body{
   display: inline-block;
   width:180px;
   height: 48px;
-  line-height: 50px;
+  line-height: 60px;
   background-color: #55AA00;
 }
 
@@ -64,7 +64,8 @@ html,body{
   color:white;
   font-size: 15px;
   font-weight: normal;
-  border:0px;
+  border:1px solid lightgray;
+  border-radius:25px;
 }
 
 /* .top-map-container > img{

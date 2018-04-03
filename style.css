@@ -29,13 +29,49 @@ html,body{
   display: block;
   width:100%;
   height:350px;
+  border:1px solid white;
 }
 
-.top-map-container > img{
+#map{
+  display: block;
+  width:100%;
+  height:350px;
+}
+
+.selection-bar{
+  display: block;
+  width:100%;
+  height: 50px;
+  background-color: white;
+  border-top: lightgray solid 1px;
+  border-bottom: lightgray solid 1px;
+  position: relative;
+}
+
+.selection-bar >.btn-container{
+  display: inline-block;
+  width:180px;
+  height: 48px;
+  line-height: 50px;
+  background-color: #55AA00;
+}
+
+.selection-bar > .btn-container > button{
+  background-color: #55AA00;
+  height:90%;
+  width: auto;
+  padding: 5px;
+  color:white;
+  font-size: 15px;
+  font-weight: normal;
+  border:0px;
+}
+
+/* .top-map-container > img{
   width:100%;
   height:100%;
   overflow: hidden;
-}
+} */
 
 .bottom-users-container{
   display:block;

@@ -14,7 +14,32 @@
     <div class="left-container"></div>
     <div class="right-container">
       <div class="top-map-container">
-        <img src="./images/map.png" alt="">
+        <div id="map"></div>
+      </div>
+      <div class="selection-bar">
+        <div class="btn-container">
+          <button onclick="showAll();">Show Me All!</button>
+        </div>
+
+        <div class="btn-container">
+          <select id="destination">
+
+            <option value="景美夜市">景美夜市</option>
+
+            <option value="樂華夜市">樂華夜市</option>
+
+            <option value="饒河夜市">饒河夜市</option>
+
+            <option value="寧夏夜市">寧夏夜市</option>
+            <option value="師大夜市">師大夜市</option>
+            <option value="饒河夜市">饒河夜市</option>
+          </select>
+        </div>
+        <div class="btn-container">
+          <button onclick="guide();">Guide me there!</button>
+        </div>
+
+
       </div>
 
       <div class="bottom-users-container">
@@ -138,5 +163,143 @@
     </div>
   </div>
 </body>
+
+<script>
+  let map;
+  let myCurrentLocation;
+  let marker;
+  let infoWindow;
+  let geocoder;
+  let userInput;
+  let pos;
+  let service;
+  //製造一二維陣列
+  let nightMarkets = new Array(2);
+
+  nightMarkets[0] = ["景美夜市", "116台北市文山區景行里景美街"];
+  nightMarkets[1] = ["臨江夜市", "106台北市大安區臨江街40巷1弄"];
+  nightMarkets[2] = ["師大夜市", "106台北市大安區師大路"];
+  nightMarkets[3] = ["饒河夜市", "105台北市松山區饒河街"];
+  nightMarkets[4] = ["寧夏夜市", "103台北市大同區寧夏路"];
+  nightMarkets[5] = ["樂華夜市", "234新北市永和區永平路"];
+
+  function initMap() { //繪製一地圖
+    service = new google.maps.DirectionsService();
+    geocoder = new google.maps.Geocoder();
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 23.5, lng: 121 },
+      zoom: 8
+    }
+    );
+    infoWindow = new google.maps.InfoWindow({ map: map });
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      //抓取使用者位置需要時間，因此抓到位置後，會繼續執行，執行到後面就抓不到使用者位置了QAQ
+      navigator.geolocation.getCurrentPosition(function (position) {
+        pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('現在位置');
+        map.setCenter(pos);
+        map.setZoom(10);
+      }, function () {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+    //反轉地址為中文
+    // google.maps.LatLng 物件
+    var coord = new google.maps.LatLng(pos.lng, pos.lat);
+    console.log(coord);
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    alert('Error: The Geolocation service failed.');
+  }
+
+  //檢查瀏覽器支不支援
+  if (navigator.geolocation) {
+    console.log('Geolocation is supported!');
+  }
+  else {
+    console.log('Geolocation is not supported for this Browser/OS version yet.');
+  }
+
+
+  //標示出夜市位置
+  function showAll() {
+    for (let i = 0; i < nightMarkets.length - 1; i++) {
+      geocoder.geocode({
+        address: nightMarkets[i][1]
+      }, function (results) {
+        //console.log(results);
+        if (results[0]) {//如果有結果，才繼續處理
+          var latlng = results[0].geometry.location;
+          new google.maps.Marker({
+            map: map,
+            position: latlng,
+          });
+          map.setCenter(latlng);//標示打上去，地圖中心自己動，不需要使用者手動拉 
+          map.setZoom(12);
+        }
+      });
+      //console.log(nightMarkets[i])
+      //geocoder.geocode(解碼要求,結果)
+    }
+
+  }
+
+  // 傳入 latLng 資訊至 geocoder.geocode
+  geocoder.geocode({ 'latLng': coord }, function (results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      // 如果有資料就會回傳
+      if (results) {
+        console.log(results[0]);
+      }
+    }
+    // 經緯度資訊錯誤
+    else {
+      alert("Reverse Geocoding failed because: " + status);
+    }
+  });
+
+  /*下拉式選單抓值
+  let selector;
+  selector.options[selector.selectedIndex].value
+  */
+
+  //var val = $("#yourddlID").val();
+  //userInput = destination.options[destination.selectedIndex].text;
+  //下拉式選單取值
+
+  function guide() {
+    //比對使用者輸入和終點位置
+    //開始規劃路徑
+
+    let x = document.getElementById("destination")
+    userInput = x.options[x.selectedIndex].text
+    console.log(userInput);
+
+    service.route({
+      destination: userInput,
+      origin: pos,
+      travelMode: google.maps.TravelMode.TRANSIT
+    }, function (result) {
+      new google.maps.DirectionsRenderer({
+        map: map,//畫在哪一張地圖上
+        directions: result,
+        //panel: document.getElementById("panel") //底下文字資訊欄
+      });
+    }); //service.route(要求,接收回應);要求會連線到google的伺服器處理
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
+
 
 </html>

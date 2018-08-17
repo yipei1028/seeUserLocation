@@ -178,7 +178,7 @@ select {
 }
 
 .user-name{
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bolder;
   color:#55AA00;
 }
@@ -207,4 +207,11 @@ select {
   font-weight: normal;
   border: lightgray solid 1px;
   margin:7px;
+}
+
+
+.see-more-btn > button >a{
+  color:white;
+  font-weight: normal;
+  text-decoration: none;
 }
